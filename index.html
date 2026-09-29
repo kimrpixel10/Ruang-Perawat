@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RuangPerawat</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">RP</div>
+        <div>
+          <strong>RuangPerawat</strong>
+          <div class="subtitle">Konsul ke Dokter Umum</div>
+        </div>
+      </div>
+      <div class="profile">Perawat</div>
+    </header>
+
+    <div class="layout">
+      <!-- Navigasi -->
+      <nav class="nav">
+        <button class="nav-item active" data-view="pasien">
+          <span>📋</span>
+          <small>Pasien</small>
+        </button>
+        <button class="nav-item" data-view="template">
+          <span>📝</span>
+          <small>Template</small>
+        </button>
+        <button class="nav-item" data-view="pengaturan">
+          <span>⚙️</span>
+          <small>Pengaturan</small>
+        </button>
+      </nav>
+
+      <!-- Konten utama -->
+      <main class="main" id="main"></main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
