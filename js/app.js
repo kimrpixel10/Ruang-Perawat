@@ -42,10 +42,10 @@ Keluhan Tambahan  : [KELUHAN_TAMBAHAN]
 
 TTV:
 • TD     : [SISTOLE]/[DIASTOLE] mmHg
-• Nadi   : [NADI]
-• RR     : [RR]
-• Suhu   : [SUHU]
-• SpO2   : [SPO2]
+• Nadi   : [NADI] x/menit
+• RR     : [RR] x/menit
+• Suhu   : [SUHU] °C
+• SpO2   : [SPO2] %
 
 Terapi:
 • IVF     : [IVF]
