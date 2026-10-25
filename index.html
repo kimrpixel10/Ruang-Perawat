@@ -1,48 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RuangPerawat</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruang Perawat</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="app">
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo">RP</div>
-        <div>
-          <strong>RuangPerawat</strong>
-          <div class="subtitle">Konsul ke Dokter Umum</div>
-        </div>
-      </div>
-      <div class="profile">Perawat</div>
+  <div id="app">
+    <header>
+      <h1>🩺 Ruang Perawat</h1>
+      <div class="profile" id="profileInfo"></div>
     </header>
 
-    <div class="layout">
-      <!-- Navigasi -->
-      <nav class="nav">
-        <button class="nav-item active" data-view="pasien">
-          <span>📋</span>
-          <small>Pasien</small>
-        </button>
-        <button class="nav-item" data-view="template">
-          <span>📝</span>
-          <small>Template</small>
-        </button>
-        <button class="nav-item" data-view="pengaturan">
-          <span>⚙️</span>
-          <small>Pengaturan</small>
-        </button>
-      </nav>
+    <nav>
+      <button onclick="setView('pasien')" id="btnPasien">Pasien</button>
+      <button onclick="setView('konsul')" id="btnKonsul">Konsul</button>
+      <button onclick="setView('profil')" id="btnProfil">Profil</button>
+    </nav>
 
-      <!-- Konten utama -->
-      <main class="main" id="main"></main>
-    </div>
+    <main id="main"></main>
   </div>
 
-  <div id="toast" class="toast"></div>
   <script src="js/app.js"></script>
 </body>
 </html>

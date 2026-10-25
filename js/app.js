@@ -40,7 +40,12 @@ JK / Usia         : [JENIS_KELAMIN] / [USIA]
 Keluhan Utama     : [KELUHAN_UTAMA]
 Keluhan Tambahan  : [KELUHAN_TAMBAHAN]
 
-TTV               : [TTV]
+TTV:
+• TD     : [SISTOLE]/[DIASTOLE] mmHg
+• Nadi   : [NADI]
+• RR     : [RR]
+• Suhu   : [SUHU]
+• SpO2   : [SPO2]
 
 Terapi:
 • IVF     : [IVF]
@@ -60,7 +65,6 @@ function setView(view) {
 }
 
 function render() {
-  // Update profil di header
   $('profileInfo').innerHTML = `
     <strong>${state.profile.nama}</strong><br>
     ${state.profile.unit} • ${state.profile.rs}
@@ -130,17 +134,32 @@ function showFormPasien(index = null) {
       <label>Keluhan Tambahan</label>
       <textarea id="keluhanTambahan">${p.keluhanTambahan || ''}</textarea>
 
-      <label>TTV (Tanda-Tanda Vital)</label>
-      <input type="text" id="ttv" value="${p.ttv || ''}" placeholder="TD 120/80, Nadi 80, RR 20, Suhu 36.5, SpO2 98%">
+      <label>Tekanan Darah - Sistole</label>
+      <input type="text" id="sistole" value="${p.sistole || ''}" placeholder="Contoh: 120">
+
+      <label>Tekanan Darah - Diastole</label>
+      <input type="text" id="diastole" value="${p.diastole || ''}" placeholder="Contoh: 80">
+
+      <label>Nadi</label>
+      <input type="text" id="nadi" value="${p.nadi || ''}" placeholder="Contoh: 88 x/menit">
+
+      <label>Respirasi (RR)</label>
+      <input type="text" id="rr" value="${p.rr || ''}" placeholder="Contoh: 20 x/menit">
+
+      <label>Suhu</label>
+      <input type="text" id="suhu" value="${p.suhu || ''}" placeholder="Contoh: 36.8 °C">
+
+      <label>SpO2</label>
+      <input type="text" id="spo2" value="${p.spo2 || ''}" placeholder="Contoh: 98%">
 
       <label>Terapi IVF (jenis infus & kebutuhannya)</label>
       <textarea id="ivf" placeholder="Contoh: RL 20 tpm, kebutuhan 2000 ml/24 jam">${p.ivf || ''}</textarea>
 
       <label>Injeksi</label>
-      <textarea id="injeksi" placeholder="Contoh: Ceftriaxone 1 gr IV /12 jam, Omeprazole 40 mg IV /24 jam">${p.injeksi || ''}</textarea>
+      <textarea id="injeksi" placeholder="Contoh: Ceftriaxone 1 gr IV /12 jam">${p.injeksi || ''}</textarea>
 
       <label>Oral</label>
-      <textarea id="oral" placeholder="Contoh: Paracetamol 500 mg 3x1, Amlodipine 5 mg 1x1">${p.oral || ''}</textarea>
+      <textarea id="oral" placeholder="Contoh: Paracetamol 500 mg 3x1">${p.oral || ''}</textarea>
 
       <button class="btn" onclick="savePatient(${index})">${isEdit ? 'Simpan Perubahan' : 'Simpan Pasien'}</button>
       <button class="btn btn-secondary" onclick="setView('pasien')">Batal</button>
@@ -155,7 +174,12 @@ function savePatient(index) {
     usia: $('usia').value,
     keluhanUtama: $('keluhanUtama').value.trim(),
     keluhanTambahan: $('keluhanTambahan').value.trim(),
-    ttv: $('ttv').value.trim(),
+    sistole: $('sistole').value.trim(),
+    diastole: $('diastole').value.trim(),
+    nadi: $('nadi').value.trim(),
+    rr: $('rr').value.trim(),
+    suhu: $('suhu').value.trim(),
+    spo2: $('spo2').value.trim(),
     ivf: $('ivf').value.trim(),
     injeksi: $('injeksi').value.trim(),
     oral: $('oral').value.trim()
@@ -201,7 +225,7 @@ function renderKonsul() {
   }
 
   let options = state.patients.map((p, i) => 
-    `<option value="${i}" ${state.currentPatient === i ? 'selected' : ''}>${p.nama}</option>`
+    `<option value="${i}" ${state.currentPatient == i ? 'selected' : ''}>${p.nama}</option>`
   ).join('');
 
   const p = state.patients[state.currentPatient || 0] || state.patients[0];
@@ -212,14 +236,19 @@ function renderKonsul() {
     .replace('[USIA]', p.usia || '')
     .replace('[KELUHAN_UTAMA]', p.keluhanUtama || '-')
     .replace('[KELUHAN_TAMBAHAN]', p.keluhanTambahan || '-')
-    .replace('[TTV]', p.ttv || '-')
+    .replace('[SISTOLE]', p.sistole || '-')
+    .replace('[DIASTOLE]', p.diastole || '-')
+    .replace('[NADI]', p.nadi || '-')
+    .replace('[RR]', p.rr || '-')
+    .replace('[SUHU]', p.suhu || '-')
+    .replace('[SPO2]', p.spo2 || '-')
     .replace('[IVF]', p.ivf || '-')
     .replace('[INJEKSI]', p.injeksi || '-')
     .replace('[ORAL]', p.oral || '-');
 
   mainEL().innerHTML = `
     <div class="card">
-      <h2>Generate Konsul / SBAR</h2>
+      <h2>Generate Konsul</h2>
       
       <label>Pilih Pasien</label>
       <select id="pilihPasien" onchange="state.currentPatient = this.value; renderKonsul()">
@@ -238,7 +267,7 @@ function renderKonsul() {
 function copySBAR() {
   const text = $('previewText').innerText;
   navigator.clipboard.writeText(text).then(() => {
-    alert('Pesan berhasil disalin! Silakan paste di WhatsApp/dokter.');
+    alert('Pesan berhasil disalin!');
   }).catch(() => {
     alert('Gagal menyalin. Silakan salin manual.');
   });
